@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special Friend</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffe6f2;
+            color: #d63384;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg');
+            background-size: cover;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(214, 51, 132, 0.3);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #ff66b3;
+            text-align: center;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #e60073;
+            border-bottom: 2px dashed #ff99cc;
+            padding-bottom: 10px;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .btn {
+            background-color: #ff66b3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #e60073;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            margin: 10px 0;
+            width: 80%;
+            font-size: 1em;
+        }
+        
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://cdn.pixabay.com/photo/2017/01/10/03/06/flower-1968358_960_720.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+        
+        #memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .memory-card {
+            height: 100px;
+            background-color: #ffccdd;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 102, 179, 0.5);
+        }
+        
+        .memory-card.flipped {
+            background-color: white;
+        }
+        
+        .teasing-section {
+            background-color: #fff0f5;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px dashed #ff99cc;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #ffccdd;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #ff66b3;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .hidden-message {
+            display: none;
+            padding: 15px;
+            background-color: #ffccdd;
+            border-radius: 10px;
+            margin: 15px 0;
+            animation: bounce 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .compatibility-meter {
+            font-size: 1.5em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .heart {
+            color: #ff66b3;
+            font-size: 1.5em;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page 1: Welcome -->
+        <div class="page active" id="page1">
+            <h1>🌸 Welcome Beautiful! 🌸</h1>
+            <p>This special website is just for you! Let's have some fun together.</p>
+            <p>I promise it's worth your time... maybe 😉</p>
+            <button class="btn" onclick="nextPage()">Let's Begin!</button>
+        </div>
+        
+        <!-- Page 2: Name -->
+        <div class="page" id="page2">
+            <h1>First Things First...</h1>
+            <p>What should I call you, pretty lady?</p>
+            <input type="text" id="userName" placeholder="Your beautiful name here...">
+            <button class="btn" onclick="nextPage()">Next</button>
+        </div>
+        
+        <!-- Page 3: Age and Gender -->
+        <div class="page" id="page3">
+            <h1>Tell Me More About You</h1>
+            <p>How young are you? (Don't lie!)</p>
+            <input type="number" id="userAge" placeholder="Your age...">
+            
+            <p>And you are...?</p>
+            <select id="userGender">
+                <option value="female">FEMALE</option>
+                <option value="female">female</option>
+                <option value="other">Other (but why?)</option>
+            </select>
+            
+            <button class="btn" onclick="nextPage()">Continue</button>
+        </div>
+        
+        <!-- Page 4: Relationship with Aryan -->
+        <div class="page" id="page4">
+            <h1>Now the Important Question...</h1>
+            <p>What's your relationship with Aryan?</p>
+            <select id="relationship">
+                <option value="unknown">Unknown (Really? 😏)</option>
+                <option value="friend">Friend (Sure, just friends...)</option>
+                <option value="brother">Brother (Eww, that's weird)</option>
+                <option value="more">More than friend (We knew it!)</option>
+                <option value="lover">Lover (🔥 Hot stuff!)</option>
+            </select>
+            <button class="btn" onclick="nextPage()">Next</button>
+        </div>
+        
+        <!-- Page 5: Compatibility Test -->
+        <div class="page" id="page5">
+            <h1>Compatibility Test</h1>
+            <p>Let's see how compatible you are with Aryan...</p>
+            <div class="progress-bar">
+                <div class="progress" id="compatibilityBar"></div>
+            </div>
+            <div class="compatibility-meter" id="compatibilityText">
+                Calculating... <span class="heart">❤️</span>
+            </div>
+            <button class="btn" onclick="calculateCompatibility()">Calculate</button>
+            <button class="btn" onclick="nextPage()" id="nextBtn5" style="display:none;">See Results</button>
+        </div>
+        
+        <!-- Page 6: Compatibility Result -->
+        <div class="page" id="page6">
+            <h1>Your Results Are In!</h1>
+            <div id="compatibilityResult"></div>
+            <div class="teasing-section">
+                <p id="teasingMessage"></p>
+            </div>
+            <button class="btn" onclick="nextPage()">Continue the Fun</button>
+        </div>
+        
+        <!-- Page 7: Memory Game -->
+        <div class="page" id="page7">
+            <h1>Memory Game</h1>
+            <p>Let's see how good your memory is! Match all the pairs.</p>
+            <div id="memory-game"></div>
+            <p id="gameScore">Matches found: 0/8</p>
+            <button class="btn" onclick="nextPage()" id="nextBtn7" style="display:none;">I'm Done!</button>
+        </div>
+        
+        <!-- Page 8: Secret Message -->
+        <div class="page" id="page8">
+            <h1>You've Unlocked a Secret!</h1>
+            <p>Click the button below to reveal your special message...</p>
+            <button class="btn" onclick="revealMessage()">Reveal Message</button>
+            <div class="hidden-message" id="secretMessage"></div>
+            <button class="btn" onclick="nextPage()" id="nextBtn8" style="display:none;">One Last Thing...</button>
+        </div>
+        
+        <!-- Page 9: Final Page -->
+        <div class="page" id="page9">
+            <h1>Thanks for Playing!</h1>
+            <p>Hope you had as much fun as I did making this for you!</p>
+            <div class="teasing-section">
+                <p>Remember, no matter what the compatibility test said, you're awesome!</p>
+                <p>(But if it said 100%, then Aryan is one lucky person 😉)</p>
+            </div>
+            <button class="btn" onclick="restart()">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 9;
+        let matchesFound = 0;
+        let flippedCards = [];
+        let matchedCards = [];
+        let userName = "";
+        
+        // Memory game cards
+        const emojis = ['🌸', '🌺', '🌷', '🌹', '💐', '🌻', '🌼', '🏵️'];
+        const cards = [...emojis, ...emojis];
+        
+        // Initialize memory game
+        function initializeMemoryGame() {
+            const gameContainer = document.getElementById('memory-game');
+            gameContainer.innerHTML = '';
+            
+            // Shuffle cards
+            cards.sort(() => Math.random() - 0.5);
+            
+            // Create cards
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.dataset.index = index;
+                card.dataset.value = emoji;
+                card.innerHTML = '❓';
+                card.addEventListener('click', flipCard);
+                gameContainer.appendChild(card);
+            });
+        }
+        
+        // Flip card in memory game
+        function flipCard() {
+            if (flippedCards.length < 2 && !flippedCards.includes(this) && !matchedCards.includes(this)) {
+                this.classList.add('flipped');
+                this.innerHTML = this.dataset.value;
+                flippedCards.push(this);
+                
+                if (flippedCards.length === 2) {
+                    setTimeout(checkForMatch, 500);
+                }
+            }
+        }
+        
+        // Check for match in memory game
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.value === card2.dataset.value) {
+                matchedCards.push(card1, card2);
+                matchesFound++;
+                document.getElementById('gameScore').textContent = `Matches found: ${matchesFound}/8`;
+                
+                if (matchesFound === 8) {
+                    document.getElementById('nextBtn7').style.display = 'inline-block';
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.innerHTML = '❓';
+                card2.innerHTML = '❓';
+            }
+            
+            flippedCards = [];
+        }
+        
+        // Calculate compatibility
+        function calculateCompatibility() {
+            const relationship = document.getElementById('relationship').value;
+            let compatibility = 0;
+            
+            switch(relationship) {
+                case 'unknown':
+                    compatibility = 10 + Math.random() * 20;
+                    break;
+                case 'friend':
+                    compatibility = 30 + Math.random() * 30;
+                    break;
+                case 'brother':
+                    compatibility = 0; // Eww!
+                    break;
+                case 'more':
+                    compatibility = 70 + Math.random() * 20;
+                    break;
+                case 'lover':
+                    compatibility = 90 + Math.random() * 10;
+                    break;
+            }
+            
+            // Make sure it's not more than 100
+            compatibility = Math.min(100, Math.round(compatibility));
+            
+            // Animate progress bar
+            const bar = document.getElementById('compatibilityBar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= compatibility) {
+                    clearInterval(interval);
+                    document.getElementById('nextBtn5').style.display = 'inline-block';
+                    
+                    // Set result text
+                    let message = "";
+                    if (compatibility < 20) {
+                        message = "Ouch! Maybe try being friends first?";
+                    } else if (compatibility < 50) {
+                        message = "There's potential... but you might need to work on it!";
+                    } else if (compatibility < 80) {
+                        message = "Looking good! There's definitely something special here!";
+                    } else {
+                        message = "Wow! This is meant to be! When's the wedding?";
+                    }
+                    
+                    // Store results for next page
+                    document.getElementById('compatibilityResult').innerHTML = `
+                        <h2>${compatibility}% Compatible!</h2>
+                        <p>With your relationship status: "${document.getElementById('relationship').options[document.getElementById('relationship').selectedIndex].text}"</p>
+                    `;
+                    
+                    document.getElementById('teasingMessage').textContent = message;
+                } else {
+                    width++;
+                    bar.style.width = width + '%';
+                    document.getElementById('compatibilityText').innerHTML = `${width}% Compatible <span class="heart">❤️</span>`;
+                }
+            }, 20);
+        }
+        
+        // Reveal secret message
+        function revealMessage() {
+            const relationship = document.getElementById('relationship').value;
+            let message = "";
+            
+            userName = document.getElementById('userName').value || "Beautiful";
+            
+            switch(relationship) {
+                case 'unknown':
+                    message = `Dear ${userName},<br>I see you're playing hard to get! "Unknown" huh? 😏<br>Well, I won't tell Aryan you said that... unless you want me to!`;
+                    break;
+                case 'friend':
+                    message = `Dear ${userName},<br>"Just friends" they always say...<br>We both know there's more to it than that! 😉`;
+                    break;
+                case 'brother':
+                    message = `Dear ${userName},<br>Eww! Really? Brother?<br>I think someone needs to check their family tree again!`;
+                    break;
+                case 'more':
+                    message = `Dear ${userName},<br>"More than friends" - now we're talking!<br>Someone's got a little crush, don't they? 😘`;
+                    break;
+                case 'lover':
+                    message = `Dear ${userName},<br>Wow! Straight to "Lover"!<br>Someone's not wasting any time! 🔥<br>Aryan is one lucky person!`;
+                    break;
+            }
+            
+            document.getElementById('secretMessage').innerHTML = message;
+            document.getElementById('secretMessage').style.display = 'block';
+            document.getElementById('nextBtn8').style.display = 'inline-block';
+        }
+        
+        // Go to next page
+        function nextPage() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage++;
+            
+            if (currentPage === 7) {
+                initializeMemoryGame();
+                matchesFound = 0;
+                flippedCards = [];
+                matchedCards = [];
+            }
+            
+            document.getElementById(`page${currentPage}`).classList.add('active');
+            
+            // Add floating flowers
+            if (currentPage === 3 || currentPage === 6 || currentPage === 9) {
+                addFloatingFlowers();
+            }
+        }
+        
+        // Restart the experience
+        function restart() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage = 1;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+        }
+        
+        // Add floating flowers for decoration
+        function addFloatingFlowers() {
+            // Remove existing flowers
+            document.querySelectorAll('.flower').forEach(flower => flower.remove());
+            
+            // Add new flowers
+            for (let i = 0; i < 15; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                
+                // Random position
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // Random size
+                const size = 30 + Math.random() * 50;
+                
+                // Random rotation
+                const rotation = Math.random() * 360;
+                
+                flower.style.left = `${left}%`;
+                flower.style.top = `${top}%`;
+                flower.style.width = `${size}px`;
+                flower.style.height = `${size}px`;
+                flower.style.transform = `rotate(${rotation}deg)`;
+                flower.style.opacity = 0.5 + Math.random() * 0.5;
+                
+                document.body.appendChild(flower);
+            }
+        }
+    </script>
+</body>
+</html>
